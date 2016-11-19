@@ -1,69 +1,40 @@
-MTF Mapper 0.5.7
+# MTF Mapper 0.5.7
 
-# build notes for Ubunutu. It worked on Lubuntu 16.04, and may work on other versions
+# Build notes for Ubunutu. It tested on a fresh Ubuntu 16.10.
 
-# install all the dependencies (note the new dependencies compared to
-# earlier MTF Mapper versions, and the use of qt5 i.s.o qt4)
+# Install packages
+sudo apt-get install wget g++ make cmake git qtbase5-dev libtclap-dev libeigen3-dev gnuplot exiv2 dcraw
 
-sudo apt-get install g++
-sudo apt-get install cmake
-sudo apt-get install libopencv-dev
-sudo apt-get install qtbase5-dev
-sudo apt-get install libtclap-dev
-sudo apt-get install libeigen3-dev
-sudo apt-get install subversion
-
-# check out the source code from the repository
+# Create working directory
+cd ~
 mkdir workspace
 cd workspace
-svn co svn://svn.code.sf.net/p/mtfmapper/code/trunk mtfmapper-code
 
-# make a build directory for cmake
-mkdir mtfmapper
-cd mtfmapper
-
-# configure with cmake
-cmake ../mtfmapper-code
-
-# the actual build
+# Build opencv 2.4.13
+cd ~/workspace
+wget -O opencv-2.4.13.zip https://codeload.github.com/opencv/opencv/zip/2.4.13
+unzip opencv-2.4.13.zip
+rm opencv-2.4.13.zip
+cd opencv-2.4.13
+wget -O opencv2.tar.gz https://aur.archlinux.org/cgit/aur.git/snapshot/opencv2.tar.gz
+tar xvzf opencv2.tar.gz
+mv opencv2/opencv_a0fdc91a14f07de25d858037940fcd3ba859b4e2.patch .
+rm opencv2 opencv2.tar.gz -rf
+patch -p1 -i opencv_a0fdc91a14f07de25d858037940fcd3ba859b4e2.patch
+mkdir build
+cd build
+cmake ..
 make
 
-# and you are done!
-# executables can be found in workspace/mtfmapper/bin
-
-
-
-==================
-MTF Mapper 0.4.23 and earlier (probably)
-
-# build notes for Ubunutu. It worked on Ubuntu 12.10, and may work on other versions
-
-# install all the dependencies
-sudo apt-get install g++
-sudo apt-get install cmake
-sudo apt-get install libopencv-dev
-sudo apt-get install libqt4-dev
-sudo apt-get install libtbb-dev
-sudo apt-get install libtclap-dev
-sudo apt-get install libfftw3-dev
-sudo apt-get install subversion
-
-# check out the source code from the repository
-mkdir workspace
-cd workspace
-svn co svn://svn.code.sf.net/p/mtfmapper/code/trunk mtfmapper-code
-
-# make a build directory for cmake
-mkdir mtfmapper
+# Build mtfmapper
+cd ~/workspace
+git clone https://github.com/kriolog/mtfmapper mtfmapper
 cd mtfmapper
-
-# configure with cmake
-cmake ../mtfmapper-code
-
-# the actual build
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DOpenCV_DIR:STRING=$HOME/workspace/opencv-2.4.13/build ..
 make
-
-# and you are done!
-# executables can be found in workspace/mtfmapper/bin
-
-
+# Launch
+wget -O test.png http://3.bp.blogspot.com/--cXVvDfj9fg/VZj5Tp-avGI/AAAAAAAAA9A/qPgtIijihNA/s1600/sfr_m_25_5_2.png
+./bin/mtf_mapper_gui
+# File -> Open -> test.png
