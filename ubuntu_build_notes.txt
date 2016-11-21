@@ -2,6 +2,10 @@
 
 # Build notes for Ubunutu. It tested on a fresh Ubuntu 16.10.
 
+
+
+### BUILD WITH A CUSTOM OPENCV (2.4.13 in this example, but "2.4.13" could be replaced with "3.1.0")
+
 # Install packages
 sudo apt-get install wget unzip tar patch g++ make cmake git qtbase5-dev libtclap-dev libeigen3-dev gnuplot exiv2 dcraw
 
@@ -38,3 +42,29 @@ make
 wget -O test.png http://3.bp.blogspot.com/--cXVvDfj9fg/VZj5Tp-avGI/AAAAAAAAA9A/qPgtIijihNA/s1600/sfr_m_25_5_2.png
 ./bin/mtf_mapper_gui
 # File -> Open -> test.png
+
+
+
+### BUILD WITH A SYSTEM OPENCV (INSTALLED WITH APT)
+
+# Install packages
+sudo apt-get install wget unzip tar patch g++ make cmake git qtbase5-dev libtclap-dev libeigen3-dev gnuplot exiv2 dcraw libopencv-dev
+
+# Create working directory
+cd ~
+mkdir workspace
+cd workspace
+
+# Build mtfmapper
+cd ~/workspace
+git clone https://github.com/kriolog/mtfmapper mtfmapper
+cd mtfmapper
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE:STRING=Debug ..
+make
+# Launch
+wget -O test.png http://3.bp.blogspot.com/--cXVvDfj9fg/VZj5Tp-avGI/AAAAAAAAA9A/qPgtIijihNA/s1600/sfr_m_25_5_2.png
+./bin/mtf_mapper_gui
+# File -> Open -> test.png
+
