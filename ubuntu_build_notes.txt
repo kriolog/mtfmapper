@@ -3,7 +3,7 @@
 # Build notes for Ubunutu. It tested on a fresh Ubuntu 16.10.
 
 # Install packages
-sudo apt-get install wget g++ make cmake git qtbase5-dev libtclap-dev libeigen3-dev gnuplot exiv2 dcraw
+sudo apt-get install wget unzip tar patch g++ make cmake git qtbase5-dev libtclap-dev libeigen3-dev gnuplot exiv2 dcraw
 
 # Create working directory
 cd ~
