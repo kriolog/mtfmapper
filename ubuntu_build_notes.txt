@@ -32,7 +32,7 @@ git clone https://github.com/kriolog/mtfmapper mtfmapper
 cd mtfmapper
 mkdir build
 cd build
-cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DOpenCV_DIR:STRING=$HOME/workspace/opencv-2.4.13/build ..
+cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DOpenCV_CONFIG_PATH:STRING=$HOME/workspace/opencv-2.4.13/build ..
 make
 # Launch
 wget -O test.png http://3.bp.blogspot.com/--cXVvDfj9fg/VZj5Tp-avGI/AAAAAAAAA9A/qPgtIijihNA/s1600/sfr_m_25_5_2.png
